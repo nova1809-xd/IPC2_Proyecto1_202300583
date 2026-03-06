@@ -292,8 +292,25 @@ namespace Proyecto1
                 }
                 else
                 {
+                    // calcular siguiente período
                     automata.SimularPeriodo();
                     periodo++;
+
+                    // generar grafo del período exacto recién calculado
+                    string nombreBase = paciente.Nombre.Replace(" ", "_");
+                    string nombreDot = $"{nombreBase}_p{automata.PeriodoActual}.dot";
+                    string nombrePng = $"{nombreBase}_p{automata.PeriodoActual}.png";
+                    string contenidoDot = GenerarContenidoDot(automata.EstadoActual, paciente.M, automata.PeriodoActual);
+                    File.WriteAllText(nombreDot, contenidoDot);
+                    EjecutarGraphviz(nombreDot, nombrePng);
+
+                    // imprimir contadores del período actual
+                    Console.WriteLine($"\nPeríodo actual: {automata.PeriodoActual}");
+                    Console.WriteLine($"Celdas sanas: {automata.CeldasSanas}");
+                    Console.WriteLine($"Celdas contagiadas: {automata.CeldasContagiadas}");
+                    Console.WriteLine($"Gráfica generada: {nombrePng}");
+                    Console.Write("\nPresione Enter para continuar...");
+                    Console.ReadLine();
                 }
             }
 
@@ -309,7 +326,41 @@ namespace Proyecto1
             Console.WriteLine($"SIMULACIÓN AUTOMÁTICA: {paciente.Nombre}\n");
 
             Automata automata = new Automata(paciente.M);
-            DiagnosticoResultado resultado = automata.SimularCompleto(paciente);
+            automata.Inicializar(paciente);
+
+            DiagnosticoResultado resultado = automata.EvaluarDiagnostico();
+
+            for (int p = 0; p < paciente.Periodos; p++)
+            {
+                // calcular siguiente período
+                automata.SimularPeriodo();
+
+                // generar grafo del período exacto recién calculado
+                string nombreBase = paciente.Nombre.Replace(" ", "_");
+                string nombreDot = $"{nombreBase}_p{automata.PeriodoActual}.dot";
+                string nombrePng = $"{nombreBase}_p{automata.PeriodoActual}.png";
+                string contenidoDot = GenerarContenidoDot(automata.EstadoActual, paciente.M, automata.PeriodoActual);
+                File.WriteAllText(nombreDot, contenidoDot);
+                EjecutarGraphviz(nombreDot, nombrePng);
+
+                // imprimir contadores del período actual
+                Console.WriteLine($"Período actual: {automata.PeriodoActual}");
+                Console.WriteLine($"Celdas sanas: {automata.CeldasSanas}");
+                Console.WriteLine($"Celdas contagiadas: {automata.CeldasContagiadas}");
+                Console.WriteLine($"Gráfica generada: {nombrePng}\n");
+
+                resultado = automata.EvaluarDiagnostico();
+                if (resultado.Diagnostico != "Leve")
+                {
+                    resultado.PeriodoFinal = automata.PeriodoActual;
+                    break;
+                }
+            }
+
+            if (resultado.Diagnostico == "Leve")
+            {
+                resultado.PeriodoFinal = automata.PeriodoActual;
+            }
 
             Console.WriteLine("RESULTADO");
             Console.WriteLine($"Paciente: {paciente.Nombre}");
