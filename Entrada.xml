@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pacientes>
+   <paciente>
+      <datospersonales>
+         <nombre>SamuelDeLuque</nombre>
+         <edad>33</edad>
+      </datospersonales>
+      <periodos>12</periodos>
+      <m>10</m>
+      <rejilla>
+         <celda f="1" c="1" />
+         <celda f="1" c="2" />
+         <celda f="2" c="1" />
+         <celda f="2" c="2" />
+
+         <celda f="1" c="9" />
+         <celda f="1" c="10" />
+         <celda f="2" c="9" />
+         <celda f="2" c="10" />
+
+         <celda f="9" c="1" />
+         <celda f="9" c="2" />
+         <celda f="10" c="1" />
+         <celda f="10" c="2" />
+
+         <celda f="9" c="9" />
+         <celda f="9" c="10" />
+         <celda f="10" c="9" />
+         <celda f="10" c="10" />
+      </rejilla>
+   </paciente>
+   <paciente>
+      <datospersonales>
+         <nombre>RubenDoblas</nombre>
+         <edad>33</edad>
+      </datospersonales>
+      <periodos>15</periodos>
+      <m>10</m>
+      <rejilla>
+         <celda f="1" c="1" />
+         <celda f="2" c="1" />
+         <celda f="3" c="1" />
+         <celda f="4" c="1" />
+         <celda f="5" c="1" />
+         <celda f="6" c="1" />
+         <celda f="7" c="1" />
+         <celda f="8" c="1" />
+         <celda f="9" c="1" />
+         <celda f="10" c="1" />
+
+         <celda f="1" c="10" />
+         <celda f="2" c="10" />
+         <celda f="3" c="10" />
+         <celda f="4" c="10" />
+         <celda f="5" c="10" />
+         <celda f="6" c="10" />
+         <celda f="7" c="10" />
+         <celda f="8" c="10" />
+         <celda f="9" c="10" />
+         <celda f="10" c="10" />
+      </rejilla>
+   </paciente>
+   
+   <paciente>
+      <datospersonales>
+         <nombre>GuillermoDiaz</nombre>
+         <edad>29</edad>
+      </datospersonales>
+      <periodos>5</periodos>
+      <m>20</m>
+      <rejilla>
+         <celda f="3" c="3" />
+         <celda f="3" c="4" />
+         <celda f="3" c="5" />
+         <celda f="3" c="6" />
+         <celda f="3" c="7" />
+         <celda f="3" c="8" />
+         <celda f="3" c="9" />
+         <celda f="3" c="10" />
+         <celda f="3" c="11" />
+         <celda f="3" c="12" />
+         <celda f="3" c="13" />
+         <celda f="3" c="14" />
+         <celda f="3" c="15" />
+         <celda f="3" c="16" />
+         <celda f="3" c="17" />
+
+         <celda f="5" c="3" />
+         <celda f="5" c="7" />
+         <celda f="5" c="8" />
+         <celda f="5" c="9" />
+         <celda f="5" c="10" />
+         <celda f="5" c="11" />
+         <celda f="5" c="12" />
+         <celda f="5" c="13" />
+         <celda f="5" c="17" />
+
+         <celda f="6" c="3" />
+         <celda f="6" c="17" />
+
+         <celda f="7" c="3" />
+         <celda f="7" c="7" />
+         <celda f="7" c="13" />
+         <celda f="7" c="17" />
+
+         <celda f="8" c="3" />
+         <celda f="8" c="7" />
+         <celda f="8" c="13" />
+         <celda f="8" c="17" />
+
+         <celda f="9" c="3" />
+         <celda f="9" c="7" />
+         <celda f="9" c="9" />
+         <celda f="9" c="10" />
+         <celda f="9" c="11" />
+         <celda f="9" c="13" />
+         <celda f="9" c="17" />
+
+         <celda f="10" c="3" />
+         <celda f="10" c="7" />
+         <celda f="10" c="9" />
+         <celda f="10" c="10" />
+         <celda f="10" c="11" />
+         <celda f="10" c="13" />
+         <celda f="10" c="17" />
+
+         <celda f="11" c="3" />
+         <celda f="11" c="7" />
+         <celda f="11" c="9" />
+         <celda f="11" c="10" />
+         <celda f="11" c="11" />
+         <celda f="11" c="13" />
+         <celda f="11" c="17" />
+
+         <celda f="12" c="3" />
+         <celda f="12" c="7" />
+         <celda f="12" c="13" />
+         <celda f="12" c="17" />
+
+         <celda f="13" c="3" />
+         <celda f="13" c="7" />
+         <celda f="13" c="13" />
+         <celda f="13" c="17" />
+
+         <celda f="14" c="3" />
+         <celda f="14" c="17" />
+
+         <celda f="15" c="3" />
+         <celda f="15" c="7" />
+         <celda f="15" c="8" />
+         <celda f="15" c="9" />
+         <celda f="15" c="10" />
+         <celda f="15" c="11" />
+         <celda f="15" c="12" />
+         <celda f="15" c="13" />
+         <celda f="15" c="17" />
+
+         <celda f="16" c="3" />
+         <celda f="16" c="17" />
+
+         <celda f="18" c="3" />
+         <celda f="18" c="4" />
+         <celda f="18" c="5" />
+         <celda f="18" c="6" />
+         <celda f="18" c="7" />
+         <celda f="18" c="8" />
+         <celda f="18" c="9" />
+         <celda f="18" c="10" />
+         <celda f="18" c="11" />
+         <celda f="18" c="12" />
+         <celda f="18" c="13" />
+         <celda f="18" c="14" />
+         <celda f="18" c="15" />
+         <celda f="18" c="16" />
+         <celda f="18" c="17" />
+
+      </rejilla>
+   </paciente>
+
+
+</pacientes>

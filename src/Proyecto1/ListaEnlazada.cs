@@ -13,7 +13,7 @@ namespace Proyecto1
             Tamaño = 0;
         }
 
-        // metodo para agregar un elemento al final de la lista
+        // agregar un elemento al final
         public void Insertar(T dato)
         {
             Nodo<T> nuevoNodo = new Nodo<T>(dato);
@@ -34,7 +34,7 @@ namespace Proyecto1
             Tamaño++;
         }
 
-        // obtener un elemento en la posicion que necesites
+        // obtener elemento por posición (índice)
         public T ObtenerPorIndice(int indice)
         {
             if (indice < 0 || indice >= Tamaño)
@@ -57,20 +57,20 @@ namespace Proyecto1
             throw new IndexOutOfRangeException("Índice fuera de rango.");
         }
 
-        // limpiar toda la lista, basicamente la resetea
+        // limpiar la lista (resetear)
         public void Limpiar()
         {
             Cabeza = null;
             Tamaño = 0;
         }
 
-        // chequear si la lista tiene elementos o esta vacia
+        // verificar si está vacía
         public bool EstaVacia()
         {
             return Cabeza == null;
         }
 
-        // recorrer toda la lista y hacer algo con cada elemento que encuentre
+        // recorrer y ejecutar acción en cada elemento
         public void ParaCada(Action<T> accion)
         {
             Nodo<T> actual = Cabeza;
@@ -81,7 +81,7 @@ namespace Proyecto1
             }
         }
 
-        // buscar el primer elemento que cumpla la condicion que le paso
+        // buscar el primer elemento que cumpla la condición
         public T BuscarPrimero(Predicate<T> condicion)
         {
             Nodo<T> actual = Cabeza;
@@ -96,7 +96,7 @@ namespace Proyecto1
             return default(T);
         }
 
-        // verificar si existe algun elemento que cumpla lo que busco
+        // verificar si existe algún elemento con la condición
         public bool Existe(Predicate<T> condicion)
         {
             Nodo<T> actual = Cabeza;

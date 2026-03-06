@@ -4,55 +4,89 @@ namespace Proyecto1
     {
         public NodoMatriz<T> Cabeza { get; set; } // referencia a la esquina superior izquierda (0,0)
         public int M { get; set; } // tamaño de la matriz (M x M)
+        private ListaEnlazada<NodoMatriz<T>> todosLosNodos { get; set; } // almacenar referencias para búsqueda rápida
 
         public Matriz(int m)
         {
             M = m;
             Cabeza = null;
+            todosLosNodos = new ListaEnlazada<NodoMatriz<T>>();
         }
 
-        // construir la matriz ortogonal completa
+        // construir la matriz ortogonal completa sin usar arrays 2D
         public void Construir(T valorInicial)
         {
-            // crear todos los nodos
-            NodoMatriz<T>[,] nodos = new NodoMatriz<T>[M, M];
-
+            // crear todos los nodos y guardarlos en lista para referencia rápida
+            ListaEnlazada<ListaEnlazada<NodoMatriz<T>>> filas = new ListaEnlazada<ListaEnlazada<NodoMatriz<T>>>();
+            
+            // crear nodos fila por fila
             for (int i = 0; i < M; i++)
             {
+                ListaEnlazada<NodoMatriz<T>> filaActual = new ListaEnlazada<NodoMatriz<T>>();
                 for (int j = 0; j < M; j++)
                 {
-                    nodos[i, j] = new NodoMatriz<T>(valorInicial, i, j);
+                    NodoMatriz<T> nuevoNodo = new NodoMatriz<T>(valorInicial, i, j);
+                    filaActual.Insertar(nuevoNodo);
+                    todosLosNodos.Insertar(nuevoNodo);
                 }
+                filas.Insertar(filaActual);
             }
 
-            // conectar vecinos ortogonales (Arriba, Abajo, Izquierda, Derecha)
+            // conectar vecinos ortogonales y diagonales
             for (int i = 0; i < M; i++)
             {
+                ListaEnlazada<NodoMatriz<T>> filaActual = filas.ObtenerPorIndice(i);
+                
                 for (int j = 0; j < M; j++)
                 {
+                    NodoMatriz<T> nodoActual = filaActual.ObtenerPorIndice(j);
+
+                    // conectar Arriba
                     if (i > 0)
-                        nodos[i, j].Arriba = nodos[i - 1, j];
-                    if (i < M - 1)
-                        nodos[i, j].Abajo = nodos[i + 1, j];
-                    if (j > 0)
-                        nodos[i, j].Izquierda = nodos[i, j - 1];
-                    if (j < M - 1)
-                        nodos[i, j].Derecha = nodos[i, j + 1];
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaArriba = filas.ObtenerPorIndice(i - 1);
+                        nodoActual.Arriba = filaArriba.ObtenerPorIndice(j);
+                    }
 
-                    // conectar vecinos diagonales (Moore)
+                    // conectar Abajo
+                    if (i < M - 1)
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaAbajo = filas.ObtenerPorIndice(i + 1);
+                        nodoActual.Abajo = filaAbajo.ObtenerPorIndice(j);
+                    }
+
+                    // conectar Izquierda y Derecha dentro de la misma fila
+                    if (j > 0)
+                        nodoActual.Izquierda = filaActual.ObtenerPorIndice(j - 1);
+                    if (j < M - 1)
+                        nodoActual.Derecha = filaActual.ObtenerPorIndice(j + 1);
+
+                    // conectar diagonales
                     if (i > 0 && j > 0)
-                        nodos[i, j].ArribaIzquierda = nodos[i - 1, j - 1];
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaArriba = filas.ObtenerPorIndice(i - 1);
+                        nodoActual.ArribaIzquierda = filaArriba.ObtenerPorIndice(j - 1);
+                    }
                     if (i > 0 && j < M - 1)
-                        nodos[i, j].ArribaDerecha = nodos[i - 1, j + 1];
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaArriba = filas.ObtenerPorIndice(i - 1);
+                        nodoActual.ArribaDerecha = filaArriba.ObtenerPorIndice(j + 1);
+                    }
                     if (i < M - 1 && j > 0)
-                        nodos[i, j].AbajoIzquierda = nodos[i + 1, j - 1];
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaAbajo = filas.ObtenerPorIndice(i + 1);
+                        nodoActual.AbajoIzquierda = filaAbajo.ObtenerPorIndice(j - 1);
+                    }
                     if (i < M - 1 && j < M - 1)
-                        nodos[i, j].AbajoDerecha = nodos[i + 1, j + 1];
+                    {
+                        ListaEnlazada<NodoMatriz<T>> filaAbajo = filas.ObtenerPorIndice(i + 1);
+                        nodoActual.AbajoDerecha = filaAbajo.ObtenerPorIndice(j + 1);
+                    }
                 }
             }
 
-            // guardar referencia a la cabeza (esquina superior izquierda)
-            Cabeza = nodos[0, 0];
+            // guardar cabeza (0,0)
+            Cabeza = filas.ObtenerPorIndice(0).ObtenerPorIndice(0);
         }
 
         // obtener el nodo en una posicion especifica

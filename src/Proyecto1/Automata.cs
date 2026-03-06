@@ -139,48 +139,45 @@ namespace Proyecto1
             return sonIguales;
         }
 
-        // evaluar diagnóstico: detectar si hay patrones repetidos
+        // evaluar diagnóstico: detectar patrones de repetición
         public DiagnosticoResultado EvaluarDiagnostico()
         {
             DiagnosticoResultado resultado = new DiagnosticoResultado();
 
-            // verificar si el patrón actual coincide con el inicial (período 0)
+            // Patrón MORTAL: retorna al estado inicial (período 0)
             if (PeriodoActual > 0)
             {
                 Matriz<int> estadoInicial = Historico.ObtenerPorIndice(0);
                 if (CompararMatrices(EstadoActual, estadoInicial))
                 {
                     resultado.Diagnostico = "Mortal";
-                    resultado.N = PeriodoActual;
+                    resultado.N = PeriodoActual;  // El período donde vuelve al estado inicial
+                    resultado.N1 = 0;  // El estado inicial es el período 0
                     return resultado;
                 }
             }
 
-            // verificar si hay un patrón secundario que se repite
+            // Patrón GRAVE: detectar oscilación periódica (patrón de período anterior que se repite)
             for (int i = 1; i < PeriodoActual; i++)
             {
-                Matriz<int> patronSecundario = Historico.ObtenerPorIndice(i);
-                if (CompararMatrices(EstadoActual, patronSecundario))
+                Matriz<int> estadoAnterior = Historico.ObtenerPorIndice(i);
+                if (CompararMatrices(EstadoActual, estadoAnterior))
                 {
-                    int diferenciaPeriopos = PeriodoActual - i;
-
-                    if (diferenciaPeriopos == 1)
-                    {
-                        resultado.Diagnostico = "Mortal";
-                        resultado.N1 = diferenciaPeriopos;
-                    }
-                    else
-                    {
-                        resultado.Diagnostico = "Grave";
-                        resultado.N1 = diferenciaPeriopos;
-                    }
-
+                    // Se encontró que estado en período P coincide con período i
+                    // Esto significa hay un patrón de período = P - i
+                    int periodoOscilacion = PeriodoActual - i;
+                    
+                    resultado.Diagnostico = "Grave";
+                    resultado.N = i;  // Período donde inició el patrón
+                    resultado.N1 = periodoOscilacion;  // Cada cuántos períodos se repite
                     return resultado;
                 }
             }
 
-            // si no hay repetición, es leve
+            // Patrón LEVE: sin repeticiones detectadas
             resultado.Diagnostico = "Leve";
+            resultado.N = PeriodoActual;  // Registrar hasta qué período llegó
+            resultado.N1 = 0;
             return resultado;
         }
 
